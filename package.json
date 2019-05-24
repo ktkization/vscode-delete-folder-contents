@@ -11,16 +11,29 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:clearFolderContents"
+		"*"
 	],
 	"main": "./extension.js",
 	"contributes": {
 		"commands": [
 			{
-				"command": "extension.helloWorld",
-				"title": "Hello World"
+				"command": "extension.deleteFolderContents",
+				"title": "Delete folder contents"
 			}
-		]
+		],
+		"menus": {
+			"explorer/context": [
+				{
+					"when": "explorerResourceIsFolder",
+					"command": "extension.deleteFolderContents"
+				}
+			],
+			"editor/title/context": [
+				{
+					"command": "extension.deleteFolderContents"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"postinstall": "node ./node_modules/vscode/bin/install",
@@ -32,5 +45,8 @@
 		"eslint": "^5.13.0",
 		"@types/node": "^10.12.21",
 		"@types/mocha": "^2.2.42"
+	},
+	"dependencies": {
+		"fs-extra": "^8.0.1"
 	}
 }
